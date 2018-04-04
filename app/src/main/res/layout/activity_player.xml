@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.theeagle.music.Activities.PlayerActivity">
+    tools:context="com.example.theeagle.music.activities.PlayerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,32 +30,23 @@
             android:textAlignment="center" />
     </LinearLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/play_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="8dp"
         android:background="@drawable/ic_play_button" />
 
-    <Button
+    <ImageButton
         android:id="@+id/pause_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="8dp"
-        android:background="@drawable/ic_rounded_pause_button"
-        android:layout_toStartOf="@id/play_btn"/>
+        android:layout_toStartOf="@id/play_btn"
+        android:background="@drawable/ic_rounded_pause_button" />
 
-    <Button
-        android:id="@+id/stop_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@id/play_btn"
-        android:layout_alignBottom="@id/play_btn"
-        android:layout_marginStart="13dp"
-        android:layout_toEndOf="@id/play_btn"
-        android:background="@drawable/ic_stop" />
 </RelativeLayout>

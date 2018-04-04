@@ -1,4 +1,4 @@
-package com.example.theeagle.music.Activities;
+package com.example.theeagle.music.activities;
 
 import android.database.Cursor;
 import android.provider.MediaStore;
@@ -7,8 +7,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.theeagle.music.Adapter.Adapter;
-import com.example.theeagle.music.Model.Info;
+import com.example.theeagle.music.adapter.Adapter;
+import com.example.theeagle.music.model.Info;
 import com.example.theeagle.music.R;
 
 import java.util.ArrayList;

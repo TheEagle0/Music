@@ -1,4 +1,4 @@
-package com.example.theeagle.music.Adapter;
+package com.example.theeagle.music.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,9 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.theeagle.music.Activities.PlayerActivity;
-import com.example.theeagle.music.Model.Info;
 import com.example.theeagle.music.R;
+import com.example.theeagle.music.activities.PlayerActivity;
+import com.example.theeagle.music.model.Info;
+import com.example.theeagle.music.util.C;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ import java.util.ArrayList;
  * Created by theeagle on 4/3/18
  */
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
+public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements C {
     private ArrayList<Info> audioFilesList;
     private Context context;
 
@@ -68,9 +69,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             int position = getAdapterPosition();
             Info info = this.infos.get(position);
             context.startActivity(new Intent(this.context, PlayerActivity.class)
-                    .putExtra("track name", info.getTrackName())
-                    .putExtra("artist name", info.getArtistName())
-                    .putExtra("file uri", info.getUri()));
+                    .putExtra(KEY_TRACK_NAME, info.getTrackName())
+                    .putExtra(KEY_ARTIST_NAME, info.getArtistName())
+                    .putExtra(KEY_FILE_URI, info.getUri()));
 
         }
     }

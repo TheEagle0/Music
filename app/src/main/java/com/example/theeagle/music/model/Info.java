@@ -1,4 +1,4 @@
-package com.example.theeagle.music.Model;
+package com.example.theeagle.music.model;
 
 /**
  * Created by theeagle on 3/27/18.
