@@ -11,7 +11,7 @@
         android:id="@+id/audio_recycler_view"
         android:scrollbars="vertical"
         android:scrollbarStyle="insideInset"
-        android:scrollbarSize="@dimen/cardview_compat_inset_shadow">
+        >
 
     </android.support.v7.widget.RecyclerView>
 
