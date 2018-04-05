@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Music</string>
+    <string name="play_pause_btn">Play_pause_btn</string>
+    <string name="permission_granted">Permission granted</string>
 </resources>

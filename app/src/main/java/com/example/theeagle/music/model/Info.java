@@ -5,18 +5,10 @@ package com.example.theeagle.music.model;
  */
 
 public class Info {
+
     private String artistName;
     private String trackName;
     private String uri;
-
-
-
-    public Info(String artistName, String trackName, String uri) {
-        this.artistName = artistName;
-        this.trackName = trackName;
-        this.uri = uri;
-
-    }
 
     public Info() {
 

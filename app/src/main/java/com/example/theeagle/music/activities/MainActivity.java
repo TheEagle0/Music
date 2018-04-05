@@ -1,29 +1,55 @@
 package com.example.theeagle.music.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
+import com.example.theeagle.music.R;
 import com.example.theeagle.music.adapter.Adapter;
 import com.example.theeagle.music.model.Info;
-import com.example.theeagle.music.R;
+import com.example.theeagle.music.util.C;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements C {
 
     private ArrayList<Info> audioFilesList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initArrays();
-        initViews();
+        checkStoragePermission();
+
+    }
+
+
+    private void checkStoragePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermission();
+        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED) {
+            initArrays();
+        }
+    }
+
+    private void requestPermission() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    STORAGE_PERMISSION);
+        }
     }
 
     private void initViews() {
@@ -37,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     private void initArrays() {
         audioFilesList = new ArrayList<>();
         String[] projection = {MediaStore.Audio.Media.DISPLAY_NAME, MediaStore.Audio.Media.ARTIST,
-        MediaStore.Audio.Media.DATA};
+                MediaStore.Audio.Media.DATA};
         Cursor cursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection, null, null, null);
         if (cursor != null) {
@@ -53,6 +79,18 @@ public class MainActivity extends AppCompatActivity {
             }
             cursor.close();
         }
+        initViews();
+    }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case STORAGE_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, R.string.permission_granted, Toast.LENGTH_SHORT).show();
+                    initArrays();
+                }
+
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.example.theeagle.music.services;
 import android.app.Service;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -63,6 +64,11 @@ public class MediaPlaybackService extends Service implements C,
         mediaPlayerManager.play();
     }
 
+    @Nullable
+    public MediaPlayerManager getMediaPlayerManager(){
+        return mediaPlayerManager;
+    }
+
     private void initMediaPlayer(Uri uri) {
         if (mediaPlayerManager != null && uri.equals(mediaPlayerManager.getUri())) {
             Log.e(TAG, "initMediaPlayer: not init media player is already init");
@@ -83,7 +89,7 @@ public class MediaPlaybackService extends Service implements C,
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return new ServiceBinder();
     }
 
     @Override
@@ -103,5 +109,10 @@ public class MediaPlaybackService extends Service implements C,
 
     private void sendEvent(@NonNull final String action){
         LocalBroadcastManager.getInstance(this).sendBroadcast(new Intent(action));
+    }
+    public class ServiceBinder extends Binder{
+        public MediaPlaybackService getService(){
+            return MediaPlaybackService.this;
+        }
     }
 }

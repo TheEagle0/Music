@@ -14,4 +14,6 @@ public interface C {
     String ACTION_PLAYER_PAUSE = "action_pause";
     String ACTION_PLAYER_RELEASE = "action_release";
 
+    int STORAGE_PERMISSION = 1;
+
 }

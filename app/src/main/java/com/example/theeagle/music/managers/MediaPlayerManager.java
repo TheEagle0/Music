@@ -47,6 +47,10 @@ public class MediaPlayerManager {
         mediaPlayer.stop();
     }
 
+    public boolean isPlaying() {
+        return mediaPlayer.isPlaying();
+    }
+
     public interface OnPlaybackStateChanged{
         void onPause();
         void onResume();

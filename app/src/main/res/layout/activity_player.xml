@@ -30,23 +30,15 @@
             android:textAlignment="center" />
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/play_btn"
+    <Button
+        android:id="@+id/play_pause"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="8dp"
-        android:background="@drawable/ic_play_button" />
-
-    <ImageButton
-        android:id="@+id/pause_btn"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="8dp"
-        android:layout_toStartOf="@id/play_btn"
-        android:background="@drawable/ic_rounded_pause_button" />
+        android:background="@drawable/ic_play_button"
+        android:contentDescription="@string/play_pause_btn"
+        android:enabled="false" />
 
 </RelativeLayout>
