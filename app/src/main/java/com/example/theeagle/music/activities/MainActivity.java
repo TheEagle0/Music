@@ -23,7 +23,7 @@ import com.example.theeagle.music.util.C;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements C,LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements C, LoaderManager.LoaderCallbacks<Cursor> {
 
     private ArrayList<Info> audioFilesList;
     private String[] projection = {MediaStore.Audio.Media.DISPLAY_NAME, MediaStore.Audio.Media.ARTIST,
@@ -34,21 +34,17 @@ public class MainActivity extends AppCompatActivity implements C,LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkStoragePermission();
-
-
     }
 
     private void initCursorLoader() {
-        getLoaderManager().initLoader(LOADER_ID,null,this);
+        getLoaderManager().initLoader(LOADER_ID, null, this);
     }
-
 
     private void checkStoragePermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
-        }else         initCursorLoader();
-
+        } else initCursorLoader();
     }
 
     private void requestPermission() {
@@ -68,8 +64,6 @@ public class MainActivity extends AppCompatActivity implements C,LoaderManager.L
         adapter.notifyDataSetChanged();
     }
 
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -78,20 +72,18 @@ public class MainActivity extends AppCompatActivity implements C,LoaderManager.L
                     Toast.makeText(this, R.string.permission_granted, Toast.LENGTH_SHORT).show();
                     initCursorLoader();
                 }
-
         }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(this,MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,projection,
-                null,null,null);
+        return new CursorLoader(this, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection,
+                null, null, null);
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         audioFilesList = new ArrayList<>();
-
         Cursor cursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection, null, null, null);
         if (cursor != null) {
