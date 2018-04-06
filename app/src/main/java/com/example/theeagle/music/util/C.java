@@ -16,4 +16,6 @@ public interface C {
 
     int STORAGE_PERMISSION = 1;
 
+    int LOADER_ID = 1;
+
 }

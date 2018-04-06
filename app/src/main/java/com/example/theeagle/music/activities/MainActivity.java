@@ -1,6 +1,9 @@
 package com.example.theeagle.music.activities;
 
 import android.Manifest;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -20,16 +23,24 @@ import com.example.theeagle.music.util.C;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements C {
+public class MainActivity extends AppCompatActivity implements C,LoaderManager.LoaderCallbacks<Cursor> {
 
     private ArrayList<Info> audioFilesList;
+    private String[] projection = {MediaStore.Audio.Media.DISPLAY_NAME, MediaStore.Audio.Media.ARTIST,
+            MediaStore.Audio.Media.DATA};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkStoragePermission();
+        initCursorLoader();
 
+
+    }
+
+    private void initCursorLoader() {
+        getLoaderManager().initLoader(LOADER_ID,null,this);
     }
 
 
@@ -37,9 +48,6 @@ public class MainActivity extends AppCompatActivity implements C {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
-        } else if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_GRANTED) {
-            initArrays();
         }
     }
 
@@ -60,10 +68,29 @@ public class MainActivity extends AppCompatActivity implements C {
         adapter.notifyDataSetChanged();
     }
 
-    private void initArrays() {
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case STORAGE_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, R.string.permission_granted, Toast.LENGTH_SHORT).show();
+                }
+
+        }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this,MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,projection,
+                null,null,null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         audioFilesList = new ArrayList<>();
-        String[] projection = {MediaStore.Audio.Media.DISPLAY_NAME, MediaStore.Audio.Media.ARTIST,
-                MediaStore.Audio.Media.DATA};
+
         Cursor cursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 projection, null, null, null);
         if (cursor != null) {
@@ -83,14 +110,7 @@ public class MainActivity extends AppCompatActivity implements C {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case STORAGE_PERMISSION:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, R.string.permission_granted, Toast.LENGTH_SHORT).show();
-                    initArrays();
-                }
+    public void onLoaderReset(Loader<Cursor> loader) {
 
-        }
     }
 }
