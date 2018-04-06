@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements C,LoaderManager.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkStoragePermission();
-        initCursorLoader();
 
 
     }
@@ -48,7 +47,8 @@ public class MainActivity extends AppCompatActivity implements C,LoaderManager.L
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermission();
-        }
+        }else         initCursorLoader();
+
     }
 
     private void requestPermission() {
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements C,LoaderManager.L
             case STORAGE_PERMISSION:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, R.string.permission_granted, Toast.LENGTH_SHORT).show();
+                    initCursorLoader();
                 }
 
         }
