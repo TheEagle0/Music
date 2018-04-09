@@ -161,4 +161,5 @@ public class PlayerActivity extends AppCompatActivity implements
     public void onServiceDisconnected(ComponentName name) {
         playPause.setEnabled(false);
     }
+
 }

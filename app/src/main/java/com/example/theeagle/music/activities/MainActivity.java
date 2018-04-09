@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements C, LoaderManager.
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         audioFilesList = new ArrayList<>();
         Cursor cursor = getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-                projection, null, null, null);
+                projection, null, null, MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 Info info = new Info();
