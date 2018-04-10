@@ -33,8 +33,11 @@ public class MainActivity extends AppCompatActivity implements C, LoaderManager.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(R.string.activity_label);
         checkStoragePermission();
+
     }
+
 
     private void initCursorLoader() {
         getLoaderManager().initLoader(LOADER_ID, null, this);
@@ -106,4 +109,6 @@ public class MainActivity extends AppCompatActivity implements C, LoaderManager.
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
+
+
 }

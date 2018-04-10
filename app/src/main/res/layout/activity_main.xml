@@ -6,12 +6,11 @@
     tools:context="com.example.theeagle.music.activities.MainActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/audio_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/audio_recycler_view"
-        android:scrollbars="vertical"
         android:scrollbarStyle="insideInset"
-        >
+        android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
 

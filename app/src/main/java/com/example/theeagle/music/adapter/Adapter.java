@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.theeagle.music.R;
@@ -52,8 +53,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
         private ArrayList<Info> infos = new ArrayList<>();
         public Info info;
         private Context context;
+        private ImageButton play;
 
-        private ViewHolder(View itemView, Context context, ArrayList<Info> infos) {
+        private ViewHolder(View itemView, final Context context, ArrayList<Info> infos) {
 
             super(itemView);
             this.infos = infos;
@@ -62,17 +64,25 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
             trackName = itemView.findViewById(R.id.track_name);
             trackName.setSelected(true);
             artistName = itemView.findViewById(R.id.artist_name);
+            play = itemView.findViewById(R.id.play);
+            play.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-            int position = getAdapterPosition();
-            Info info = this.infos.get(position);
-            context.startActivity(new Intent(this.context, PlayerActivity.class)
-                    .putExtra(KEY_TRACK_NAME, info.getTrackName())
-                    .putExtra(KEY_ARTIST_NAME, info.getArtistName())
-                    .putExtra(KEY_FILE_URI, info.getUri()));
-
+            if (v.getId() == R.id.play) {
+                context.startActivity(new Intent(context, PlayerActivity.class)
+                        .putExtra(KEY_TRACK_NAME, info.getTrackName())
+                        .putExtra(KEY_ARTIST_NAME, info.getArtistName())
+                        .putExtra(KEY_FILE_URI, info.getUri()));
+            } else {
+                int position = getAdapterPosition();
+                Info info = this.infos.get(position);
+                context.startActivity(new Intent(this.context, PlayerActivity.class)
+                        .putExtra(KEY_TRACK_NAME, info.getTrackName())
+                        .putExtra(KEY_ARTIST_NAME, info.getArtistName())
+                        .putExtra(KEY_FILE_URI, info.getUri()));
+            }
         }
     }
 }
